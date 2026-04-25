@@ -148,7 +148,7 @@ export default function Home() {
           Jewelry designed to make bold statements
         </h2>
         <p style={{ fontSize: '17px', maxWidth: '540px', lineHeight: '1.9', color: '#c9a8f0', marginBottom: '48px' }}>
-          Klarvoya was born from the belief that jewelry should do more than decorate — it should transform. Each piece is patented, crafted from fine metals, and designed to reflect the many sides of who you are.
+          Klarvoya was born from the belief that jewelry should do more than decorate — it should transform. Each piece is patented, crafted from fine metals, and designed to transform with you throughout your day. We make jewelry for the ones who believe more is more — vibrant, playful, and unapologetically loud.
         </p>
         <div style={{ width: '100%', maxWidth: '700px', height: '420px', borderRadius: '4px', overflow: 'hidden', position: 'relative', border: '1px solid #3d1070' }}>
           <img src={photos.story} alt="Close up of elegant fine jewelry on soft fabric" style={{ width: '100%', height: '100%', objectFit: 'cover' }}/>
@@ -217,9 +217,9 @@ export default function Home() {
         display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center',
       }}>
         <p style={{ letterSpacing: '0.4em', fontSize: '11px', color: '#c9a8f0', marginBottom: '20px', fontFamily: 'sans-serif' }}>THE COLLECTION</p>
-        <h2 style={{ fontSize: '42px', fontWeight: '300', color: '#f0eaf8', marginBottom: '16px' }}>Worn. Remembered. Passed down.</h2>
+        <h2 style={{ fontSize: '42px', fontWeight: '300', color: '#f0eaf8', marginBottom: '16px' }}>Make a statement. Then make another one.</h2>
         <p style={{ fontSize: '16px', color: '#c9a8f0', maxWidth: '480px', lineHeight: '1.9', marginBottom: '48px' }}>
-          Circular, sculptural, and made to move with you. Our earrings are conversation starters and heirlooms in the making.
+          Klarvoya pieces are built for every moment — from morning coffee to midnight dancing. Bold by design, impossible to ignore.
         </p>
         <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', justifyContent: 'center' }}>
           {[
