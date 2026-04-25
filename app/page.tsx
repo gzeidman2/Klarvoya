@@ -116,7 +116,7 @@ export default function Home() {
           From the word clairvoyant — jewelry that sees you, transforms you, and tells your story.
         </p>
         <nav aria-label="Primary actions" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center', position: 'relative', zIndex: 1 }}>
-          <a href="mailto:klarvoya@gmail.com" aria-label="Contact Klarvoya by email" style={{
+          <a href="mailto:info@klarvoya.com" aria-label="Contact Klarvoya by email" style={{
             backgroundColor: '#8B2FC9', color: '#fff',
             padding: '16px 40px', fontSize: '12px', letterSpacing: '0.25em',
             textDecoration: 'none', fontFamily: 'sans-serif', borderRadius: '2px',
@@ -350,7 +350,7 @@ export default function Home() {
         <nav aria-label="Legal links" style={{ display: 'flex', gap: '24px', justifyContent: 'center', flexWrap: 'wrap' }}>
           <a href="/privacy-policy" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>PRIVACY POLICY</a>
           <a href="/terms" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>TERMS AND CONDITIONS</a>
-          <a href="mailto:klarvoya@gmail.com" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>CONTACT</a>
+          <a href="mailto:info@klarvoya.com" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>CONTACT</a>
         </nav>
       </footer>
 
