@@ -90,18 +90,18 @@ export default function Home() {
         ))}
 
         <div role="img" aria-label="Klarvoya logo" style={{
-          width: '110px', height: '110px',
-          backgroundColor: '#fff',
+          width: '200px',
+          height: '200px',
           borderRadius: '50%',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          overflow: 'hidden',
           marginBottom: '32px',
           boxShadow: '0 0 50px rgba(180,100,255,0.35)',
           position: 'relative', zIndex: 1,
+          backgroundColor: '#f0e6ff',
         }}>
-          <svg width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-            <text x="4" y="48" fontSize="48" fontWeight="700" fill="#8B2FC9">K</text>
-            <polygon points="44,14 62,32 44,50 36,32" fill="#8B2FC9" opacity="0.75"/>
-          </svg>
+          <img src="/FullLogo.jpg" alt="Klarvoya logo" style={{
+            width: '100%', height: '100%', objectFit: 'contain',
+          }}/>
         </div>
 
         <p style={{ letterSpacing: '0.5em', fontSize: '11px', color: '#c9a8f0', marginBottom: '16px', fontFamily: 'sans-serif', position: 'relative', zIndex: 1 }}>
