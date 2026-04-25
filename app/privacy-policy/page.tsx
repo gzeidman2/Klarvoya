@@ -26,7 +26,6 @@ export default function PrivacyPolicy() {
         fontSize: '15px',
         color: '#d4b8f0',
       }}>
-
         <style>{`
           .pp h2 { color: #f0eaf8; font-size: 20px; font-weight: 400; margin-top: 48px; margin-bottom: 12px; border-bottom: 1px solid #3d1070; padding-bottom: 8px; }
           .pp h3 { color: #f0eaf8; font-size: 16px; font-weight: 400; margin-top: 32px; margin-bottom: 8px; }
@@ -109,7 +108,6 @@ export default function PrivacyPolicy() {
 
           <h2 id="whoshare">4. WHEN AND WITH WHOM DO WE SHARE YOUR PERSONAL INFORMATION?</h2>
           <p><em>We may share information in specific situations and with the following third parties.</em></p>
-          <p>We may need to share your personal information in the following situations:</p>
           <ul>
             <li><strong>Business Transfers.</strong> We may share or transfer your information in connection with any merger, sale of company assets, financing, or acquisition of all or a portion of our business.</li>
           </ul>
@@ -180,7 +178,7 @@ export default function PrivacyPolicy() {
           <h2 id="contact">10. HOW CAN YOU CONTACT US ABOUT THIS NOTICE?</h2>
           <p>If you have questions or comments about this notice, you may email us at <a href="mailto:info@klarvoya.com">info@klarvoya.com</a> or contact us by post at:</p>
           <p>
-            Klarvoya INC<br />
+            <strong>Klarvoya INC</strong><br />
             7 Whittier Place, Suite 108<br />
             Boston, MA 02114<br />
             United States
@@ -203,10 +201,12 @@ export default function PrivacyPolicy() {
         fontSize: '11px', color: '#5a3080', letterSpacing: '0.2em',
       }}>
         <p style={{ marginBottom: '16px' }}>2025 KLARVOYA TM · ALL RIGHTS RESERVED · FINE JEWELRY · PATENTED</p>
-        <nav style={{ display: 'flex', gap: '24px', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <a href="/privacy-policy" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>PRIVACY POLICY</a>
-          <a href="/terms" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>TERMS AND CONDITIONS</a>
-          <a href="mailto:info@klarvoya.com" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>CONTACT</a>
+        <nav aria-label="Legal links" style={{ display: 'flex', gap: '24px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <a href="/privacy-policy" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>PRIVACY POLICY</a>
+            <a href="/terms" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>TERMS AND CONDITIONS</a>
+            <a href="/cookie-policy" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>COOKIE POLICY</a>
+            <a href="#" className="termly-display-preferences" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>CONSENT PREFERENCES</a>
+            <a href="mailto:info@klarvoya.com" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>CONTACT</a>
         </nav>
       </footer>
 

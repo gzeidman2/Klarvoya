@@ -350,6 +350,8 @@ export default function Home() {
         <nav aria-label="Legal links" style={{ display: 'flex', gap: '24px', justifyContent: 'center', flexWrap: 'wrap' }}>
           <a href="/privacy-policy" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>PRIVACY POLICY</a>
           <a href="/terms" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>TERMS AND CONDITIONS</a>
+          <a href="/cookie-policy" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>COOKIE POLICY</a>
+          <a href="#" className="termly-display-preferences" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>CONSENT PREFERENCES</a>
           <a href="mailto:info@klarvoya.com" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>CONTACT</a>
         </nav>
       </footer>

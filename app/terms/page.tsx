@@ -102,10 +102,12 @@ export default function Terms() {
         fontSize: '11px', color: '#5a3080', letterSpacing: '0.2em',
       }}>
         <p style={{ marginBottom: '16px' }}>2025 KLARVOYA TM · ALL RIGHTS RESERVED · FINE JEWELRY · PATENTED</p>
-        <nav style={{ display: 'flex', gap: '24px', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <a href="/privacy-policy" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>PRIVACY POLICY</a>
-          <a href="/terms" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>TERMS AND CONDITIONS</a>
-          <a href="mailto:info@klarvoya.com" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>CONTACT</a>
+        <nav aria-label="Legal links" style={{ display: 'flex', gap: '24px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <a href="/privacy-policy" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>PRIVACY POLICY</a>
+            <a href="/terms" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>TERMS AND CONDITIONS</a>
+            <a href="/cookie-policy" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>COOKIE POLICY</a>
+            <a href="#" className="termly-display-preferences" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>CONSENT PREFERENCES</a>
+            <a href="mailto:info@klarvoya.com" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>CONTACT</a>
         </nav>
       </footer>
 
