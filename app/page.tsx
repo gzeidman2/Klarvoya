@@ -284,13 +284,22 @@ export default function Home() {
           <button
             type="button"
             aria-label="Subscribe to Klarvoya mailing list"
-            onClick={() => {
+            onClick={async () => {
               const input = document.getElementById('email-input') as HTMLInputElement;
-              if (input && input.value && input.value.includes('@')) {
+              if (!input || !input.value || !input.value.includes('@')) {
+                alert('Please enter a valid email address.');
+                return;
+              }
+              try {
+                await fetch('/api/subscribe', {
+                  method: 'POST',
+                  headers: { 'content-type': 'application/json' },
+                  body: JSON.stringify({ email: input.value }),
+                });
                 alert('Thank you for joining the Klarvoya inner circle!');
                 input.value = '';
-              } else {
-                alert('Please enter a valid email address.');
+              } catch {
+                alert('Something went wrong. Please try again.');
               }
             }}
             style={{
