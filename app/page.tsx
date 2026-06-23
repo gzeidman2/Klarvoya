@@ -1,270 +1,382 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
+const ring1Dots = [0,30,60,90,120,150,180,210,240,270,300,330].map((deg) => ({
+  cx: Math.round((200 + 175 * Math.cos(deg * Math.PI / 180)) * 1000) / 1000,
+  cy: Math.round((200 + 175 * Math.sin(deg * Math.PI / 180)) * 1000) / 1000,
+}));
+
+const ring2Dots = [0,60,120,180,240,300].map((deg) => ({
+  cx: Math.round((200 + 130 * Math.cos(deg * Math.PI / 180)) * 1000) / 1000,
+  cy: Math.round((200 + 130 * Math.sin(deg * Math.PI / 180)) * 1000) / 1000,
+}));
+
+const storyDots = [0,45,90,135,180,225,270,315].map((deg) => ({
+  cx: Math.round((150 + 140 * Math.cos(deg * Math.PI / 180)) * 1000) / 1000,
+  cy: Math.round((150 + 140 * Math.sin(deg * Math.PI / 180)) * 1000) / 1000,
+}));
+
+const storyDots2 = [0,45,90,135,180,225,270,315].map((deg) => ({
+  cx: 150 + 140 * Math.cos(deg * Math.PI / 180),
+  cy: 150 + 140 * Math.sin(deg * Math.PI / 180),
+}));
+
 export default function Home() {
-  const photos = {
-    hero: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=1200&q=80",
-    story: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=1200&q=80",
-    model1: "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=600&q=80",
-    model2: "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=600&q=80",
-    model3: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&q=80",
-  };
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+    function initShopify() {
+      const ShopifyBuy = (window as any).ShopifyBuy;
+      const client = ShopifyBuy.buildClient({
+        domain: 'ztmpay-cu.myshopify.com',
+        storefrontAccessToken: '47534d5598ee339c5793a39079cc4f2c',
+      });
+      ShopifyBuy.UI.onReady(client).then((ui: any) => {
+        const el = document.getElementById('honeydew-product');
+        if (!el) return;
+        ui.createComponent('product', {
+          id: '10115406233920',
+          node: el,
+          moneyFormat: '%24%7B%7Bamount%7D%7D',
+          options: {
+            product: {
+              styles: {
+                product: {
+                  'text-align': 'left',
+                  'font-family': 'Georgia, serif',
+                },
+                title: {
+                  'font-family': 'Georgia, serif',
+                  'font-size': '18px',
+                  'font-weight': '300',
+                  'color': '#2d0060',
+                },
+                price: {
+                  'font-family': 'sans-serif',
+                  'font-size': '14px',
+                  'color': '#6a3a9a',
+                },
+                button: {
+                  'font-family': 'sans-serif',
+                  'font-size': '11px',
+                  'letter-spacing': '0.2em',
+                  'background-color': '#2d0060',
+                  'border-radius': '0px',
+                  'padding': '14px 28px',
+                  ':hover': { 'background-color': '#8B2FC9' },
+                  ':focus': { 'background-color': '#8B2FC9' },
+                },
+              },
+              text: { button: 'PRE-ORDER' },
+              contents: {
+                img: false,
+                title: true,
+                price: true,
+                options: false,
+                button: true,
+              },
+            },
+            cart: {
+              styles: {
+                button: {
+                  'background-color': '#2d0060',
+                  ':hover': { 'background-color': '#8B2FC9' },
+                },
+              },
+              text: { total: 'Subtotal', button: 'CHECKOUT' },
+            },
+            toggle: {
+              styles: {
+                toggle: {
+                  'background-color': '#8B2FC9',
+                  ':hover': { 'background-color': '#6a1fa0' },
+                },
+              },
+            },
+          },
+        });
+      });
+    }
+
+    if ((window as any).ShopifyBuy?.UI) {
+      initShopify();
+    } else {
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = scriptURL;
+      script.onload = initShopify;
+      document.head.appendChild(script);
+    }
+  }, []);
 
   return (
-    <main role="main" id="main-content" style={{ fontFamily: 'Georgia, serif', backgroundColor: '#120025', color: '#f0eaf8', margin: 0, padding: 0 }}>
+    <main style={{ fontFamily: 'Georgia, serif', backgroundColor: '#f5f0ff', color: '#2d0060', margin: 0, padding: 0 }}>
+
+      {/* ANNOUNCEMENT BAR */}
+      <div style={{
+        backgroundColor: '#2d0060', padding: '10px 24px',
+        textAlign: 'center', fontFamily: 'sans-serif',
+        fontSize: '12px', letterSpacing: '0.15em', color: '#e8d8ff',
+      }}>
+        PRE-ORDER NOW — SHIPS FALL 2026 · PATENT PENDING FINE JEWELRY
+      </div>
+
+      {/* NAV */}
+      <nav style={{
+        position: 'sticky', top: 0, zIndex: 100,
+        backgroundColor: scrolled ? 'rgba(245,240,255,0.98)' : '#f5f0ff',
+        borderBottom: '1px solid #e0d0f0',
+        padding: '0 48px',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        height: '64px',
+        transition: 'all 0.3s ease',
+      }}>
+        <div style={{ display: 'flex', gap: '28px', flex: 1 }}>
+          {['PRE-ORDER', 'OUR STORY', 'CONTACT'].map((item) => (
+            <a key={item}
+              href={item === 'CONTACT' ? 'mailto:klarvoya@gmail.com' : `#${item.toLowerCase().replace(/ /g, '-')}`}
+              style={{
+                fontSize: '11px', letterSpacing: '0.15em', color: '#2d0060',
+                textDecoration: 'none', fontFamily: 'sans-serif', whiteSpace: 'nowrap',
+              }}>{item}</a>
+          ))}
+        </div>
+
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+          <span style={{
+            fontSize: '28px', fontWeight: '300', letterSpacing: '0.2em',
+            color: '#2d0060', fontFamily: 'Georgia, serif', fontStyle: 'italic',
+          }}>Klarvoya</span>
+        </div>
+
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', gap: '24px' }}>
+          <a href="https://instagram.com/klarvoya" target="_blank" rel="noopener noreferrer" style={{
+            fontSize: '11px', letterSpacing: '0.15em', color: '#2d0060',
+            textDecoration: 'none', fontFamily: 'sans-serif',
+          }}>INSTAGRAM</a>
+        </div>
+      </nav>
 
       {/* HERO */}
-      <section aria-label="Hero" style={{
-        minHeight: '100vh',
-        background: 'linear-gradient(160deg, #2a0a4a 0%, #3d1070 50%, #1a0035 100%)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        padding: '60px 24px',
-        position: 'relative',
-        overflow: 'hidden',
+      <section id="pre-order" style={{
+        background: 'linear-gradient(160deg, #f5f0ff 0%, #ede4ff 60%, #faf8ff 100%)',
+        padding: '100px 48px',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        gap: '64px', flexWrap: 'wrap',
+        position: 'relative', overflow: 'hidden',
+        minHeight: '560px',
       }}>
-
-        <img src={photos.hero} alt="Elegant fine jewelry" aria-hidden="true" style={{
-          position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
-          objectFit: 'cover', opacity: 0.15,
-        }}/>
-
-        <svg aria-hidden="true" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0.12 }} viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice">
-          <circle cx="400" cy="400" r="300" fill="none" stroke="#c9a8f0" strokeWidth="0.8"/>
-          <circle cx="400" cy="400" r="240" fill="none" stroke="#c9a8f0" strokeWidth="0.8"/>
-          <circle cx="400" cy="400" r="180" fill="none" stroke="#c9a8f0" strokeWidth="0.5"/>
-          <circle cx="400" cy="400" r="120" fill="none" stroke="#c9a8f0" strokeWidth="0.5"/>
-          <circle cx="400" cy="400" r="60" fill="none" stroke="#c9a8f0" strokeWidth="0.5"/>
-          <circle cx="400" cy="280" r="120" fill="none" stroke="#c9a8f0" strokeWidth="0.4"/>
-          <circle cx="400" cy="520" r="120" fill="none" stroke="#c9a8f0" strokeWidth="0.4"/>
-          <circle cx="296" cy="340" r="120" fill="none" stroke="#c9a8f0" strokeWidth="0.4"/>
-          <circle cx="504" cy="340" r="120" fill="none" stroke="#c9a8f0" strokeWidth="0.4"/>
-          <circle cx="296" cy="460" r="120" fill="none" stroke="#c9a8f0" strokeWidth="0.4"/>
-          <circle cx="504" cy="460" r="120" fill="none" stroke="#c9a8f0" strokeWidth="0.4"/>
-          <line x1="100" y1="400" x2="700" y2="400" stroke="#c9a8f0" strokeWidth="0.3"/>
-          <line x1="400" y1="100" x2="400" y2="700" stroke="#c9a8f0" strokeWidth="0.3"/>
-          <line x1="187" y1="187" x2="613" y2="613" stroke="#c9a8f0" strokeWidth="0.3"/>
-          <line x1="613" y1="187" x2="187" y2="613" stroke="#c9a8f0" strokeWidth="0.3"/>
-          <polygon points="400,160 580,294 511,506 289,506 220,294" fill="none" stroke="#c9a8f0" strokeWidth="0.4"/>
-          {[0,30,60,90,120,150,180,210,240,270,300,330].map((deg, i) => (
-            <circle key={i}
-              cx={400 + 310 * Math.cos(deg * Math.PI / 180)}
-              cy={400 + 310 * Math.sin(deg * Math.PI / 180)}
-              r="2.5" fill="#c9a8f0"/>
-          ))}
+        <svg aria-hidden="true" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0.05 }} viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+          <circle cx="600" cy="300" r="350" fill="none" stroke="#8B2FC9" strokeWidth="1"/>
+          <circle cx="600" cy="300" r="260" fill="none" stroke="#8B2FC9" strokeWidth="0.8"/>
+          <circle cx="600" cy="300" r="170" fill="none" stroke="#8B2FC9" strokeWidth="0.6"/>
+          <circle cx="600" cy="300" r="80" fill="none" stroke="#8B2FC9" strokeWidth="0.5"/>
+          <circle cx="150" cy="300" r="200" fill="none" stroke="#8B2FC9" strokeWidth="0.5"/>
+          <circle cx="150" cy="300" r="120" fill="none" stroke="#8B2FC9" strokeWidth="0.4"/>
+          <line x1="0" y1="300" x2="800" y2="300" stroke="#8B2FC9" strokeWidth="0.3"/>
+          <line x1="400" y1="0" x2="400" y2="600" stroke="#8B2FC9" strokeWidth="0.3"/>
         </svg>
 
-        {[
-          { top: '10%', left: '5%', w: 80 },
-          { top: '20%', left: '72%', w: 110 },
-          { top: '68%', left: '12%', w: 60 },
-          { top: '78%', left: '68%', w: 90 },
-          { top: '42%', left: '86%', w: 70 },
-          { top: '55%', left: '2%', w: 50 },
-        ].map((s, i) => (
-          <div key={i} aria-hidden="true" style={{
-            position: 'absolute', top: s.top, left: s.left,
-            width: `${s.w}px`, height: '1px',
-            background: 'linear-gradient(90deg, #c9a8f0, transparent)',
-            opacity: 0.6, transform: 'rotate(-30deg)',
-          }}>
-            <div style={{ position: 'absolute', left: 0, top: '-2px', width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#c9a8f0', opacity: 0.9 }}/>
+        {/* Left — text and pre-order */}
+        <div style={{ flex: 1, minWidth: '300px', maxWidth: '520px', position: 'relative', zIndex: 1 }}>
+          <p style={{ fontSize: '11px', letterSpacing: '0.4em', color: '#8B2FC9', fontFamily: 'sans-serif', marginBottom: '16px' }}>
+            KLARVOYA DEBUT COLLECTION
+          </p>
+          <h1 style={{ fontSize: '56px', fontWeight: '300', color: '#2d0060', lineHeight: '1.15', marginBottom: '24px' }}>
+            Honeydew<br/>
+            <span style={{ fontStyle: 'italic' }}>Earrings</span>
+          </h1>
+          <div style={{ width: '40px', height: '1px', backgroundColor: '#8B2FC9', marginBottom: '24px' }}/>
+          <p style={{ fontSize: '16px', color: '#5a3080', lineHeight: '1.9', marginBottom: '16px' }}>
+            A patent pending circular hoop earring crafted from brass. Lightweight yet substantial, designed to move with you and complement every look from morning to evening.
+          </p>
+
+          <div style={{ backgroundColor: '#fff', border: '1px solid #e0d0f0', padding: '20px 24px', marginBottom: '24px', borderRadius: '2px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
+              {[
+                { label: 'Material', value: 'Brass' },
+                { label: 'Style', value: 'Circular Hoop' },
+                { label: 'Price', value: '$80' },
+                { label: 'Ships', value: 'Fall 2026' },
+                { label: 'Patent', value: 'Pending' },
+              ].map((detail) => (
+                <div key={detail.label} style={{ minWidth: '80px' }}>
+                  <p style={{ fontSize: '9px', letterSpacing: '0.2em', color: '#8B2FC9', fontFamily: 'sans-serif', marginBottom: '4px' }}>{detail.label.toUpperCase()}</p>
+                  <p style={{ fontSize: '14px', color: '#2d0060', fontWeight: '300' }}>{detail.value}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div id="honeydew-product" style={{ maxWidth: '320px' }}/>
+
+          <p style={{ fontSize: '11px', color: '#9a7ab0', fontFamily: 'sans-serif', marginTop: '16px', letterSpacing: '0.1em' }}>
+            Secure checkout · Free shipping on all orders
+          </p>
+        </div>
+
+        {/* Right — geometric illustration */}
+        <div style={{
+          flex: 1, minWidth: '280px', maxWidth: '460px',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          position: 'relative', zIndex: 1,
+        }}>
+          <svg width="380" height="380" viewBox="0 0 400 400" aria-label="Honeydew circular hoop earring design">
+            <circle cx="200" cy="200" r="175" fill="none" stroke="#8B2FC9" strokeWidth="2"/>
+            <circle cx="200" cy="200" r="155" fill="none" stroke="#c9a8f0" strokeWidth="0.8"/>
+            <circle cx="200" cy="200" r="130" fill="none" stroke="#8B2FC9" strokeWidth="1"/>
+            <circle cx="200" cy="200" r="105" fill="none" stroke="#c9a8f0" strokeWidth="0.6"/>
+            <circle cx="200" cy="200" r="80" fill="none" stroke="#8B2FC9" strokeWidth="0.8"/>
+            <circle cx="200" cy="200" r="55" fill="none" stroke="#c9a8f0" strokeWidth="0.5"/>
+            <circle cx="200" cy="200" r="30" fill="none" stroke="#8B2FC9" strokeWidth="0.5"/>
+            <circle cx="200" cy="200" r="8" fill="#8B2FC9" opacity="0.3"/>
+            <circle cx="200" cy="200" r="3" fill="#8B2FC9"/>
+            <line x1="25" y1="200" x2="375" y2="200" stroke="#c9a8f0" strokeWidth="0.4"/>
+            <line x1="200" y1="25" x2="200" y2="375" stroke="#c9a8f0" strokeWidth="0.4"/>
+            <line x1="76" y1="76" x2="324" y2="324" stroke="#c9a8f0" strokeWidth="0.3"/>
+            <line x1="324" y1="76" x2="76" y2="324" stroke="#c9a8f0" strokeWidth="0.3"/>
+            {ring1Dots.map((dot, i) => (
+              <circle key={i} cx={dot.cx} cy={dot.cy} r="4" fill="#8B2FC9" opacity="0.5"/>
+            ))}
+            {ring2Dots.map((dot, i) => (
+              <circle key={i} cx={dot.cx} cy={dot.cy} r="2.5" fill="#c9a8f0" opacity="0.7"/>
+            ))}
+            <text x="200" y="362" textAnchor="middle" fontSize="11" fill="#8B2FC9" fontFamily="Georgia, serif" letterSpacing="5" opacity="0.6">HONEYDEW</text>
+            <text x="200" y="376" textAnchor="middle" fontSize="8" fill="#8B2FC9" fontFamily="sans-serif" letterSpacing="4" opacity="0.4">KLARVOYA</text>
+          </svg>
+        </div>
+      </section>
+
+      {/* VALUES STRIP */}
+      <div style={{
+        backgroundColor: '#fff',
+        padding: '16px 24px',
+        borderBottom: '1px solid #e0d0f0',
+        borderTop: '1px solid #e0d0f0',
+        display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '32px',
+        flexWrap: 'wrap',
+      }}>
+        {['PATENT PENDING', 'BRASS', 'CIRCULAR HOOP', 'WOMAN OWNED', 'FREE SHIPPING'].map((val, i) => (
+          <div key={val} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            {i > 0 && <span style={{ color: '#c9a8f0', fontSize: '10px' }}>◇</span>}
+            <span style={{ fontSize: '10px', letterSpacing: '0.25em', color: '#6a3a9a', fontFamily: 'sans-serif' }}>{val}</span>
           </div>
         ))}
+      </div>
 
-        {[
-          { top: '15%', left: '20%' }, { top: '30%', left: '85%' },
-          { top: '60%', left: '10%' }, { top: '75%', left: '80%' },
-          { top: '20%', left: '50%' }, { top: '85%', left: '45%' },
-          { top: '50%', left: '5%' },  { top: '10%', left: '65%' },
-          { top: '90%', left: '25%' }, { top: '35%', left: '92%' },
-        ].map((d, i) => (
-          <div key={i} aria-hidden="true" style={{
-            position: 'absolute', top: d.top, left: d.left,
-            width: i % 2 === 0 ? '3px' : '2px',
-            height: i % 2 === 0 ? '3px' : '2px',
-            borderRadius: '50%', backgroundColor: '#c9a8f0', opacity: 0.6,
-          }}/>
-        ))}
-
-        <div role="img" aria-label="Klarvoya logo" style={{
-          width: '200px',
-          height: '200px',
-          borderRadius: '50%',
-          overflow: 'hidden',
-          marginBottom: '32px',
-          boxShadow: '0 0 50px rgba(180,100,255,0.35)',
-          position: 'relative', zIndex: 1,
-          backgroundColor: '#f0e6ff',
-        }}>
-          <img src="/FullLogo.jpg" alt="Klarvoya logo" style={{
-            width: '100%', height: '100%', objectFit: 'contain',
-          }}/>
-        </div>
-
-        <p style={{ letterSpacing: '0.5em', fontSize: '11px', color: '#c9a8f0', marginBottom: '16px', fontFamily: 'sans-serif', position: 'relative', zIndex: 1 }}>
-          FINE JEWELRY · PATENTED · EST. 2025
-        </p>
-
-        <h1 style={{ fontSize: '72px', fontWeight: '300', margin: '0 0 32px', letterSpacing: '0.1em', color: '#f0eaf8', position: 'relative', zIndex: 1 }}>
-          Klarvoya<span style={{ fontSize: '24px', verticalAlign: 'super', color: '#c9a8f0' }}>™</span>
-        </h1>
-
-        <p style={{ fontSize: '19px', fontStyle: 'italic', color: '#d4b8f0', maxWidth: '500px', lineHeight: '1.9', marginBottom: '48px', position: 'relative', zIndex: 1 }}>
-          From the word clairvoyant — jewelry that sees you, transforms you, and tells your story.
-        </p>
-        <nav aria-label="Primary actions" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center', position: 'relative', zIndex: 1 }}>
-          <a href="mailto:info@klarvoya.com" aria-label="Contact Klarvoya by email" style={{
-            backgroundColor: '#8B2FC9', color: '#fff',
-            padding: '16px 40px', fontSize: '12px', letterSpacing: '0.25em',
-            textDecoration: 'none', fontFamily: 'sans-serif', borderRadius: '2px',
-          }}>GET IN TOUCH</a>
-          <a href="https://instagram.com/klarvoya" target="_blank" rel="noopener noreferrer" aria-label="Follow Klarvoya on Instagram, opens in new tab" style={{
-            border: '1px solid #c9a8f0', color: '#c9a8f0',
-            padding: '16px 40px', fontSize: '12px', letterSpacing: '0.25em',
-            textDecoration: 'none', fontFamily: 'sans-serif', borderRadius: '2px',
-          }}>FOLLOW US</a>
-        </nav>
-      </section>
-
-      {/* STORY */}
-      <section aria-label="Our story" style={{
-        background: 'linear-gradient(180deg, #1a0035 0%, #2a0a4a 100%)',
-        padding: '70px 24px',
-        display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center',
-        position: 'relative', overflow: 'hidden',
+      {/* PRODUCT DETAILS */}
+      <section style={{
+        backgroundColor: '#fff',
+        padding: '80px 48px',
+        display: 'flex', gap: '64px', flexWrap: 'wrap', justifyContent: 'center',
       }}>
-        <svg aria-hidden="true" style={{ position: 'absolute', right: '-80px', top: '-80px', opacity: 0.08 }} width="400" height="400" viewBox="0 0 400 400">
-          <circle cx="200" cy="200" r="180" fill="none" stroke="#c9a8f0" strokeWidth="1"/>
-          <circle cx="200" cy="200" r="120" fill="none" stroke="#c9a8f0" strokeWidth="1"/>
-          <circle cx="200" cy="200" r="60" fill="none" stroke="#c9a8f0" strokeWidth="1"/>
-          <circle cx="200" cy="80" r="120" fill="none" stroke="#c9a8f0" strokeWidth="0.8"/>
-          <circle cx="200" cy="320" r="120" fill="none" stroke="#c9a8f0" strokeWidth="0.8"/>
-        </svg>
-        <p style={{ letterSpacing: '0.4em', fontSize: '11px', color: '#c9a8f0', marginBottom: '20px', fontFamily: 'sans-serif' }}>OUR STORY</p>
-        <h2 style={{ fontSize: '42px', fontWeight: '300', maxWidth: '600px', lineHeight: '1.4', marginBottom: '24px', color: '#f0eaf8' }}>
-          Jewelry designed to make bold statements
+        <p style={{ width: '100%', textAlign: 'center', fontSize: '11px', letterSpacing: '0.4em', color: '#8B2FC9', fontFamily: 'sans-serif', marginBottom: '8px' }}>THE DETAILS</p>
+        <h2 style={{ width: '100%', textAlign: 'center', fontSize: '32px', fontWeight: '300', color: '#2d0060', marginBottom: '48px', fontStyle: 'italic' }}>
+          crafted with intention
         </h2>
-        <p style={{ fontSize: '17px', maxWidth: '540px', lineHeight: '1.9', color: '#c9a8f0', marginBottom: '48px' }}>
-          Klarvoya was born from the belief that jewelry should do more than decorate — it should transform. Each piece is patented, crafted from fine metals, and designed to transform with you throughout your day. We make jewelry for the ones who believe more is more — vibrant, playful, and unapologetically loud.
-        </p>
-        <div style={{ width: '100%', maxWidth: '700px', height: '420px', borderRadius: '4px', overflow: 'hidden', position: 'relative', border: '1px solid #3d1070' }}>
-          <img src={photos.story} alt="Close up of elegant fine jewelry on soft fabric" style={{ width: '100%', height: '100%', objectFit: 'cover' }}/>
-          <div aria-hidden="true" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #1a0035 0%, transparent 60%)'}}/>
-        </div>
+        {[
+          {
+            title: 'The Design',
+            body: 'A patent pending circular hoop with a refined silhouette. Lightweight yet substantial, the Honeydew is designed to move with you through every moment of your day.',
+          },
+          {
+            title: 'The Material',
+            body: 'Crafted from brass — a warm, rich metal with a beautiful tone that complements every skin tone. Durable and built to last for years to come.',
+          },
+          {
+            title: 'The Promise',
+            body: 'Every Klarvoya piece features a patent pending design. Your pre-order helps bring this original design to life — be among the first to own it.',
+          },
+        ].map((item) => (
+          <div key={item.title} style={{ flex: '1', minWidth: '220px', maxWidth: '260px', textAlign: 'center' }}>
+            <div style={{ width: '24px', height: '1px', backgroundColor: '#8B2FC9', margin: '0 auto 20px' }}/>
+            <h3 style={{ fontSize: '18px', fontWeight: '300', color: '#2d0060', marginBottom: '16px' }}>{item.title}</h3>
+            <p style={{ fontSize: '14px', color: '#6a3a9a', lineHeight: '1.9' }}>{item.body}</p>
+          </div>
+        ))}
       </section>
 
-      {/* PILLARS */}
-      <section aria-label="What we stand for" style={{
-        background: 'linear-gradient(180deg, #2a0a4a 0%, #1a0035 100%)',
-        padding: '70px 24px',
-        display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center',
+      {/* OUR STORY */}
+      <section id="our-story" style={{
+        background: 'linear-gradient(160deg, #f5f0ff 0%, #ede4ff 100%)',
+        padding: '100px 48px',
+        display: 'flex', gap: '80px', flexWrap: 'wrap',
+        alignItems: 'center', justifyContent: 'center',
         position: 'relative', overflow: 'hidden',
       }}>
-        <svg aria-hidden="true" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0.07 }} viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
-          <circle cx="150" cy="300" r="200" fill="none" stroke="#c9a8f0" strokeWidth="0.8"/>
-          <circle cx="150" cy="300" r="140" fill="none" stroke="#c9a8f0" strokeWidth="0.6"/>
-          <circle cx="150" cy="300" r="80" fill="none" stroke="#c9a8f0" strokeWidth="0.5"/>
-          <circle cx="650" cy="300" r="200" fill="none" stroke="#c9a8f0" strokeWidth="0.8"/>
-          <circle cx="650" cy="300" r="140" fill="none" stroke="#c9a8f0" strokeWidth="0.6"/>
-          <circle cx="650" cy="300" r="80" fill="none" stroke="#c9a8f0" strokeWidth="0.5"/>
-          <circle cx="400" cy="300" r="200" fill="none" stroke="#c9a8f0" strokeWidth="0.8"/>
-          <circle cx="400" cy="300" r="140" fill="none" stroke="#c9a8f0" strokeWidth="0.6"/>
-          <line x1="0" y1="300" x2="800" y2="300" stroke="#c9a8f0" strokeWidth="0.3"/>
-          <line x1="400" y1="0" x2="400" y2="600" stroke="#c9a8f0" strokeWidth="0.3"/>
-          <line x1="150" y1="0" x2="150" y2="600" stroke="#c9a8f0" strokeWidth="0.2"/>
-          <line x1="650" y1="0" x2="650" y2="600" stroke="#c9a8f0" strokeWidth="0.2"/>
-          {[0,45,90,135,180,225,270,315].map((deg, i) => (
-            <circle key={i}
-              cx={400 + 380 * Math.cos(deg * Math.PI / 180)}
-              cy={300 + 280 * Math.sin(deg * Math.PI / 180)}
-              r="2" fill="#c9a8f0" opacity="0.6"/>
-          ))}
+        <svg aria-hidden="true" style={{ position: 'absolute', left: '-60px', bottom: '-60px', opacity: 0.05 }} width="400" height="400" viewBox="0 0 400 400">
+          <circle cx="200" cy="200" r="180" fill="none" stroke="#8B2FC9" strokeWidth="1"/>
+          <circle cx="200" cy="200" r="130" fill="none" stroke="#8B2FC9" strokeWidth="1"/>
+          <circle cx="200" cy="200" r="80" fill="none" stroke="#8B2FC9" strokeWidth="1"/>
+          <circle cx="200" cy="200" r="30" fill="none" stroke="#8B2FC9" strokeWidth="1"/>
         </svg>
 
-        <p style={{ letterSpacing: '0.4em', fontSize: '11px', color: '#c9a8f0', marginBottom: '20px', fontFamily: 'sans-serif', position: 'relative', zIndex: 1 }}>WHAT WE STAND FOR</p>
-        <h2 style={{ fontSize: '42px', fontWeight: '300', color: '#f0eaf8', marginBottom: '48px', position: 'relative', zIndex: 1 }}>The Klarvoya way</h2>
-        <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap', justifyContent: 'center', maxWidth: '900px', position: 'relative', zIndex: 1 }}>
-          {[
-            { title: 'Express Yourself, Boldly', body: 'Our designs dare you to be loud, proud, and unapologetically you. Jewelry as an expression of confidence.' },
-            { title: 'Lead with Innovation', body: 'Patented technology meets fine craftsmanship. We push beyond what jewelry has been to create what it can be.' },
-            { title: 'Doing It Right', body: 'From ethical sourcing to lasting quality — pieces that honor both the wearer and the world.' },
-          ].map((p) => (
-            <article key={p.title} style={{
-              flex: '1', minWidth: '240px', maxWidth: '260px',
-              backgroundColor: '#2d0060', borderRadius: '4px',
-              padding: '36px 28px', textAlign: 'center',
-              border: '1px solid #3d1070',
-            }}>
-              <svg width="48" height="48" viewBox="0 0 48 48" style={{ marginBottom: '20px' }} aria-hidden="true">
-                <circle cx="24" cy="24" r="22" fill="none" stroke="#c9a8f0" strokeWidth="0.8"/>
-                <circle cx="24" cy="24" r="14" fill="none" stroke="#c9a8f0" strokeWidth="0.8"/>
-                <circle cx="24" cy="24" r="6" fill="#8B2FC9" opacity="0.6"/>
-              </svg>
-              <h3 style={{ fontSize: '18px', fontWeight: '400', color: '#f0eaf8', marginBottom: '16px', lineHeight: '1.4' }}>{p.title}</h3>
-              <p style={{ fontSize: '14px', color: '#c9a8f0', lineHeight: '1.8' }}>{p.body}</p>
-            </article>
-          ))}
+        <div style={{ flex: 1, minWidth: '280px', maxWidth: '500px', position: 'relative', zIndex: 1 }}>
+          <p style={{ fontSize: '11px', letterSpacing: '0.4em', color: '#8B2FC9', fontFamily: 'sans-serif', marginBottom: '16px' }}>OUR STORY</p>
+          <h2 style={{ fontSize: '40px', fontWeight: '300', color: '#2d0060', marginBottom: '24px', lineHeight: '1.3', fontStyle: 'italic' }}>
+            from the word<br/>clairvoyant
+          </h2>
+          <div style={{ width: '40px', height: '1px', backgroundColor: '#8B2FC9', marginBottom: '24px' }}/>
+          <p style={{ fontSize: '16px', color: '#5a3080', lineHeight: '1.9', marginBottom: '20px' }}>
+            Klarvoya was born from the belief that jewelry should do more than decorate. It should transform. It should see you.
+          </p>
+          <p style={{ fontSize: '16px', color: '#5a3080', lineHeight: '1.9', marginBottom: '32px' }}>
+            The Honeydew earring is our debut piece — a patent pending circular hoop designed to be worn, remembered, and passed down. Simple in form, intentional in every detail.
+          </p>
+          <a href="https://instagram.com/klarvoya" target="_blank" rel="noopener noreferrer" style={{
+            display: 'inline-block',
+            backgroundColor: '#2d0060', color: '#fff',
+            padding: '13px 36px', fontSize: '11px', letterSpacing: '0.2em',
+            textDecoration: 'none', fontFamily: 'sans-serif',
+          }}>FOLLOW OUR JOURNEY</a>
         </div>
-      </section>
 
-      {/* EARRINGS SHOWCASE */}
-      <section aria-label="The collection" style={{
-        background: 'linear-gradient(180deg, #1a0035 0%, #2a0a4a 100%)',
-        padding: '70px 24px',
-        display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center',
-      }}>
-        <p style={{ letterSpacing: '0.4em', fontSize: '11px', color: '#c9a8f0', marginBottom: '20px', fontFamily: 'sans-serif' }}>THE COLLECTION</p>
-        <h2 style={{ fontSize: '42px', fontWeight: '300', color: '#f0eaf8', marginBottom: '16px' }}>Make a statement. Then make another one.</h2>
-        <p style={{ fontSize: '16px', color: '#c9a8f0', maxWidth: '480px', lineHeight: '1.9', marginBottom: '48px' }}>
-          Klarvoya pieces are built for every moment — from morning coffee to midnight dancing. Bold by design, impossible to ignore.
-        </p>
-        <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', justifyContent: 'center' }}>
-          {[
-            { src: photos.model1, alt: 'Fine gold jewelry close up on soft fabric' },
-            { src: photos.model2, alt: 'Elegant jewelry on neutral background' },
-            { src: photos.model3, alt: 'Fine jewelry detail showing craftsmanship' },
-          ].map((item, i) => (
-            <div key={i} style={{
-              width: '280px', height: '360px',
-              borderRadius: '4px', overflow: 'hidden',
-              border: '1px solid #3d1070',
-              position: 'relative',
-              backgroundColor: '#2d0060',
-            }}>
-              <img src={item.src} alt={item.alt} style={{ width: '100%', height: '100%', objectFit: 'cover' }}/>
-              <div aria-hidden="true" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #1a0035 0%, transparent 50%)' }}/>
-            </div>
-          ))}
+        <div style={{
+          flex: 1, minWidth: '260px', maxWidth: '380px',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          position: 'relative', zIndex: 1,
+        }}>
+          <svg width="320" height="320" viewBox="0 0 300 300" aria-hidden="true">
+            <circle cx="150" cy="150" r="140" fill="none" stroke="#8B2FC9" strokeWidth="1.5"/>
+            <circle cx="150" cy="150" r="110" fill="none" stroke="#c9a8f0" strokeWidth="0.8"/>
+            <circle cx="150" cy="150" r="80" fill="none" stroke="#8B2FC9" strokeWidth="0.8"/>
+            <circle cx="150" cy="150" r="50" fill="none" stroke="#c9a8f0" strokeWidth="0.6"/>
+            <circle cx="150" cy="150" r="20" fill="#8B2FC9" opacity="0.1"/>
+            <circle cx="150" cy="150" r="5" fill="#8B2FC9" opacity="0.4"/>
+            <line x1="10" y1="150" x2="290" y2="150" stroke="#c9a8f0" strokeWidth="0.4"/>
+            <line x1="150" y1="10" x2="150" y2="290" stroke="#c9a8f0" strokeWidth="0.4"/>
+            <line x1="51" y1="51" x2="249" y2="249" stroke="#c9a8f0" strokeWidth="0.3"/>
+            <line x1="249" y1="51" x2="51" y2="249" stroke="#c9a8f0" strokeWidth="0.3"/>
+            {storyDots.map((dot, i) => (
+              <circle key={i} cx={dot.cx} cy={dot.cy} r="3.5" fill="#8B2FC9" opacity="0.5"/>
+            ))}
+            <text x="150" y="268" textAnchor="middle" fontSize="10" fill="#8B2FC9" fontFamily="Georgia, serif" letterSpacing="4" opacity="0.5">KLARVOYA</text>
+          </svg>
         </div>
       </section>
 
       {/* MAILING LIST */}
-      <section aria-label="Join our mailing list" style={{
-        background: 'linear-gradient(180deg, #2a0a4a 0%, #1a0035 100%)',
-        padding: '70px 24px',
+      <section style={{
+        backgroundColor: '#fff',
+        padding: '80px 24px',
         display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center',
-        position: 'relative', overflow: 'hidden',
+        borderTop: '1px solid #e0d0f0',
       }}>
-        <svg aria-hidden="true" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0.06 }} viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice">
-          <circle cx="400" cy="200" r="300" fill="none" stroke="#c9a8f0" strokeWidth="0.8"/>
-          <circle cx="400" cy="200" r="200" fill="none" stroke="#c9a8f0" strokeWidth="0.6"/>
-          <circle cx="400" cy="200" r="100" fill="none" stroke="#c9a8f0" strokeWidth="0.5"/>
-          <circle cx="100" cy="200" r="150" fill="none" stroke="#c9a8f0" strokeWidth="0.5"/>
-          <circle cx="700" cy="200" r="150" fill="none" stroke="#c9a8f0" strokeWidth="0.5"/>
-        </svg>
-        <p style={{ letterSpacing: '0.4em', fontSize: '11px', color: '#c9a8f0', marginBottom: '16px', fontFamily: 'sans-serif', position: 'relative', zIndex: 1 }}>
-          STAY IN THE KNOW
+        <p style={{ fontSize: '11px', letterSpacing: '0.4em', color: '#8B2FC9', fontFamily: 'sans-serif', marginBottom: '12px' }}>STAY IN THE KNOW</p>
+        <h2 style={{ fontSize: '32px', fontWeight: '300', color: '#2d0060', marginBottom: '8px', fontStyle: 'italic' }}>join the inner circle</h2>
+        <div style={{ width: '32px', height: '1px', backgroundColor: '#8B2FC9', margin: '0 auto 16px' }}/>
+        <p style={{ fontSize: '14px', color: '#6a3a9a', maxWidth: '400px', lineHeight: '1.9', marginBottom: '36px' }}>
+          Be first to know when Honeydew ships, plus exclusive previews of what is coming next from Klarvoya.
         </p>
-        <h2 style={{ fontSize: '42px', fontWeight: '300', color: '#f0eaf8', marginBottom: '16px', position: 'relative', zIndex: 1 }}>
-          Join the inner circle
-        </h2>
-        <p style={{ fontSize: '16px', color: '#c9a8f0', maxWidth: '440px', lineHeight: '1.9', marginBottom: '40px', position: 'relative', zIndex: 1 }}>
-          Be the first to know about new drops, exclusive previews, and the story behind each Klarvoya piece.
-        </p>
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', maxWidth: '500px', width: '100%', position: 'relative', zIndex: 1 }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', maxWidth: '480px', width: '100%' }}>
           <label htmlFor="email-input" style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>
             Email address
           </label>
@@ -272,18 +384,16 @@ export default function Home() {
             id="email-input"
             type="email"
             placeholder="Your email address"
-            aria-label="Enter your email address to join the mailing list"
             style={{
               flex: 1, minWidth: '240px',
-              padding: '16px 20px', fontSize: '14px', fontFamily: 'sans-serif',
-              backgroundColor: 'rgba(255,255,255,0.08)',
+              padding: '14px 20px', fontSize: '13px', fontFamily: 'sans-serif',
+              backgroundColor: '#faf8ff',
               border: '1px solid #c9a8f0', borderRight: 'none',
-              color: '#ffffff', outline: 'none', borderRadius: '2px 0 0 2px',
+              color: '#2d0060', outline: 'none',
             }}
           />
           <button
             type="button"
-            aria-label="Subscribe to Klarvoya mailing list"
             onClick={async () => {
               const input = document.getElementById('email-input') as HTMLInputElement;
               if (!input || !input.value || !input.value.includes('@')) {
@@ -303,57 +413,80 @@ export default function Home() {
               }
             }}
             style={{
-              padding: '16px 28px', backgroundColor: '#8B2FC9', color: '#ffffff',
-              border: '1px solid #8B2FC9', fontSize: '12px', letterSpacing: '0.2em',
-              fontFamily: 'sans-serif', cursor: 'pointer', borderRadius: '0 2px 2px 0',
+              padding: '14px 28px', backgroundColor: '#2d0060', color: '#fff',
+              border: 'none', fontSize: '11px', letterSpacing: '0.25em',
+              fontFamily: 'sans-serif', cursor: 'pointer',
             }}
-          >
-            JOIN
-          </button>
+          >JOIN</button>
         </div>
-        <p style={{ fontSize: '11px', color: '#a080c0', marginTop: '16px', fontFamily: 'sans-serif', position: 'relative', zIndex: 1 }}>
+        <p style={{ fontSize: '11px', color: '#b090d0', marginTop: '14px', fontFamily: 'sans-serif' }}>
           No spam, ever. Unsubscribe at any time.
         </p>
       </section>
 
       {/* CTA */}
-      <section aria-label="Follow us on Instagram" style={{
-        background: 'linear-gradient(160deg, #3d1070 0%, #8B2FC9 100%)',
-        padding: '70px 24px',
+      <section style={{
+        background: 'linear-gradient(135deg, #2d0060 0%, #8B2FC9 100%)',
+        padding: '80px 24px',
         display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center',
         position: 'relative', overflow: 'hidden',
       }}>
-        <svg aria-hidden="true" style={{ position: 'absolute', top: '-60px', left: '-60px', opacity: 0.1 }} width="300" height="300" viewBox="0 0 300 300">
+        <svg aria-hidden="true" style={{ position: 'absolute', top: '-40px', right: '-40px', opacity: 0.08 }} width="300" height="300" viewBox="0 0 300 300">
           <circle cx="150" cy="150" r="140" fill="none" stroke="#fff" strokeWidth="1"/>
           <circle cx="150" cy="150" r="90" fill="none" stroke="#fff" strokeWidth="1"/>
           <circle cx="150" cy="150" r="40" fill="none" stroke="#fff" strokeWidth="1"/>
         </svg>
-        <h2 style={{ fontSize: '48px', fontWeight: '300', color: '#fff', marginBottom: '20px', position: 'relative', zIndex: 1 }}>Be the first to know</h2>
-        <p style={{ fontSize: '17px', color: '#e8d8ff', maxWidth: '420px', lineHeight: '1.9', marginBottom: '40px', position: 'relative', zIndex: 1 }}>
-          The collection is coming. Follow us on Instagram and be first when Klarvoya drops.
+        <p style={{ fontSize: '11px', letterSpacing: '0.4em', color: '#e8d8ff', fontFamily: 'sans-serif', marginBottom: '12px', position: 'relative', zIndex: 1 }}>FOLLOW ALONG</p>
+        <h2 style={{ fontSize: '36px', fontWeight: '300', color: '#fff', marginBottom: '8px', fontStyle: 'italic', position: 'relative', zIndex: 1 }}>follow our journey</h2>
+        <div style={{ width: '32px', height: '1px', backgroundColor: '#e8d8ff', margin: '0 auto 20px', position: 'relative', zIndex: 1 }}/>
+        <p style={{ fontSize: '15px', color: '#e8d8ff', maxWidth: '400px', lineHeight: '1.9', marginBottom: '40px', position: 'relative', zIndex: 1 }}>
+          Behind the scenes, updates on our launch, and the story behind each Klarvoya piece.
         </p>
-        <a href="https://instagram.com/klarvoya" target="_blank" rel="noopener noreferrer" aria-label="Follow Klarvoya on Instagram, opens in new tab" style={{
-          backgroundColor: '#fff', color: '#8B2FC9',
-          padding: '18px 48px', fontSize: '12px', letterSpacing: '0.3em',
-          textDecoration: 'none', fontFamily: 'sans-serif', borderRadius: '2px',
+        <a href="https://instagram.com/klarvoya" target="_blank" rel="noopener noreferrer" style={{
+          backgroundColor: '#fff', color: '#2d0060',
+          padding: '15px 48px', fontSize: '11px', letterSpacing: '0.3em',
+          textDecoration: 'none', fontFamily: 'sans-serif',
           position: 'relative', zIndex: 1,
-        }}>FOLLOW US ON INSTAGRAM</a>
+        }}>FOLLOW ON INSTAGRAM</a>
       </section>
 
       {/* FOOTER */}
-      <footer role="contentinfo" style={{
-        backgroundColor: '#0d0018', padding: '40px 24px',
-        textAlign: 'center', fontFamily: 'sans-serif',
-        fontSize: '11px', color: '#5a3080', letterSpacing: '0.2em',
+      <footer style={{
+        backgroundColor: '#2d0060',
+        padding: '56px 48px 32px',
+        fontFamily: 'sans-serif',
       }}>
-        <p style={{ marginBottom: '16px' }}>2025 KLARVOYA TM · ALL RIGHTS RESERVED · FINE JEWELRY · PATENTED</p>
-        <nav aria-label="Legal links" style={{ display: 'flex', gap: '24px', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <a href="/privacy-policy" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>PRIVACY POLICY</a>
-          <a href="/terms" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>TERMS AND CONDITIONS</a>
-          <a href="/cookie-policy" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>COOKIE POLICY</a>
-          <a href="#" className="termly-display-preferences" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>CONSENT PREFERENCES</a>
-          <a href="mailto:info@klarvoya.com" style={{ fontSize: '11px', color: '#c9a8f0', textDecoration: 'underline', letterSpacing: '0.15em' }}>CONTACT</a>
-        </nav>
+        <div style={{
+          display: 'flex', justifyContent: 'space-between',
+          flexWrap: 'wrap', gap: '40px',
+          maxWidth: '960px', margin: '0 auto 48px',
+        }}>
+          <div>
+            <p style={{ fontSize: '22px', fontWeight: '300', letterSpacing: '0.2em', color: '#fff', fontFamily: 'Georgia, serif', fontStyle: 'italic', marginBottom: '12px' }}>Klarvoya</p>
+            <p style={{ fontSize: '12px', color: '#c9a8f0', lineHeight: '1.8', maxWidth: '200px' }}>
+              Patent pending fine jewelry. Designed to transform.
+            </p>
+          </div>
+          <div>
+            <p style={{ fontSize: '11px', letterSpacing: '0.2em', color: '#fff', marginBottom: '16px' }}>SHOP</p>
+            <a href="#pre-order" style={{ display: 'block', fontSize: '12px', color: '#c9a8f0', textDecoration: 'none', marginBottom: '8px' }}>Honeydew Earrings — Pre-Order</a>
+          </div>
+          <div>
+            <p style={{ fontSize: '11px', letterSpacing: '0.2em', color: '#fff', marginBottom: '16px' }}>INFO</p>
+            <a href="/privacy-policy" style={{ display: 'block', fontSize: '12px', color: '#c9a8f0', textDecoration: 'none', marginBottom: '8px' }}>Privacy Policy</a>
+            <a href="/terms" style={{ display: 'block', fontSize: '12px', color: '#c9a8f0', textDecoration: 'none', marginBottom: '8px' }}>Terms and Conditions</a>
+            <a href="mailto:klarvoya@gmail.com" style={{ display: 'block', fontSize: '12px', color: '#c9a8f0', textDecoration: 'none', marginBottom: '8px' }}>Contact</a>
+          </div>
+          <div>
+            <p style={{ fontSize: '11px', letterSpacing: '0.2em', color: '#fff', marginBottom: '16px' }}>FOLLOW</p>
+            <a href="https://instagram.com/klarvoya" target="_blank" rel="noopener noreferrer" style={{ display: 'block', fontSize: '12px', color: '#c9a8f0', textDecoration: 'none', marginBottom: '8px' }}>Instagram</a>
+          </div>
+        </div>
+        <div style={{ borderTop: '1px solid #3d1070', paddingTop: '24px', textAlign: 'center' }}>
+          <p style={{ fontSize: '11px', color: '#7a5a9a', letterSpacing: '0.15em' }}>
+            2025 KLARVOYA TM · ALL RIGHTS RESERVED · FINE JEWELRY · PATENT PENDING
+          </p>
+        </div>
       </footer>
 
     </main>
