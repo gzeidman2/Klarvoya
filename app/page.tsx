@@ -17,11 +17,6 @@ const storyDots = [0,45,90,135,180,225,270,315].map((deg) => ({
   cy: Math.round((150 + 140 * Math.sin(deg * Math.PI / 180)) * 1000) / 1000,
 }));
 
-const storyDots2 = [0,45,90,135,180,225,270,315].map((deg) => ({
-  cx: 150 + 140 * Math.cos(deg * Math.PI / 180),
-  cy: 150 + 140 * Math.sin(deg * Math.PI / 180),
-}));
-
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
 
@@ -154,7 +149,9 @@ export default function Home() {
           <span style={{
             fontSize: '28px', fontWeight: '300', letterSpacing: '0.2em',
             color: '#2d0060', fontFamily: 'Georgia, serif', fontStyle: 'italic',
-          }}>Klarvoya</span>
+          }}>
+            Klarvoya<sup style={{ fontSize: '14px', letterSpacing: '0' }}>™</sup>
+          </span>
         </div>
 
         <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', gap: '24px' }}>
@@ -185,10 +182,9 @@ export default function Home() {
           <line x1="400" y1="0" x2="400" y2="600" stroke="#8B2FC9" strokeWidth="0.3"/>
         </svg>
 
-        {/* Left — text and pre-order */}
         <div style={{ flex: 1, minWidth: '300px', maxWidth: '520px', position: 'relative', zIndex: 1 }}>
           <p style={{ fontSize: '11px', letterSpacing: '0.4em', color: '#8B2FC9', fontFamily: 'sans-serif', marginBottom: '16px' }}>
-            KLARVOYA DEBUT COLLECTION
+            KLARVOYA™ DEBUT COLLECTION
           </p>
           <h1 style={{ fontSize: '56px', fontWeight: '300', color: '#2d0060', lineHeight: '1.15', marginBottom: '24px' }}>
             Honeydew<br/>
@@ -223,7 +219,6 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Right — geometric illustration */}
         <div style={{
           flex: 1, minWidth: '280px', maxWidth: '460px',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -250,7 +245,7 @@ export default function Home() {
               <circle key={i} cx={dot.cx} cy={dot.cy} r="2.5" fill="#c9a8f0" opacity="0.7"/>
             ))}
             <text x="200" y="362" textAnchor="middle" fontSize="11" fill="#8B2FC9" fontFamily="Georgia, serif" letterSpacing="5" opacity="0.6">HONEYDEW</text>
-            <text x="200" y="376" textAnchor="middle" fontSize="8" fill="#8B2FC9" fontFamily="sans-serif" letterSpacing="4" opacity="0.4">KLARVOYA</text>
+            <text x="200" y="376" textAnchor="middle" fontSize="8" fill="#8B2FC9" fontFamily="sans-serif" letterSpacing="4" opacity="0.4">KLARVOYA™</text>
           </svg>
         </div>
       </section>
@@ -293,7 +288,7 @@ export default function Home() {
           },
           {
             title: 'The Promise',
-            body: 'Every Klarvoya piece features a patent pending design. Your pre-order helps bring this original design to life — be among the first to own it.',
+            body: 'Every Klarvoya™ piece features a patent pending design. Your pre-order helps bring this original design to life — be among the first to own it.',
           },
         ].map((item) => (
           <div key={item.title} style={{ flex: '1', minWidth: '220px', maxWidth: '260px', textAlign: 'center' }}>
@@ -326,7 +321,7 @@ export default function Home() {
           </h2>
           <div style={{ width: '40px', height: '1px', backgroundColor: '#8B2FC9', marginBottom: '24px' }}/>
           <p style={{ fontSize: '16px', color: '#5a3080', lineHeight: '1.9', marginBottom: '20px' }}>
-            Klarvoya was born from the belief that jewelry should do more than decorate. It should transform. It should see you.
+            Klarvoya™ was born from the belief that jewelry should do more than decorate. It should transform. It should see you.
           </p>
           <p style={{ fontSize: '16px', color: '#5a3080', lineHeight: '1.9', marginBottom: '32px' }}>
             The Honeydew earring is our debut piece — a patent pending circular hoop designed to be worn, remembered, and passed down. Simple in form, intentional in every detail.
@@ -358,7 +353,7 @@ export default function Home() {
             {storyDots.map((dot, i) => (
               <circle key={i} cx={dot.cx} cy={dot.cy} r="3.5" fill="#8B2FC9" opacity="0.5"/>
             ))}
-            <text x="150" y="268" textAnchor="middle" fontSize="10" fill="#8B2FC9" fontFamily="Georgia, serif" letterSpacing="4" opacity="0.5">KLARVOYA</text>
+            <text x="150" y="268" textAnchor="middle" fontSize="10" fill="#8B2FC9" fontFamily="Georgia, serif" letterSpacing="4" opacity="0.5">KLARVOYA™</text>
           </svg>
         </div>
       </section>
@@ -374,7 +369,7 @@ export default function Home() {
         <h2 style={{ fontSize: '32px', fontWeight: '300', color: '#2d0060', marginBottom: '8px', fontStyle: 'italic' }}>join the inner circle</h2>
         <div style={{ width: '32px', height: '1px', backgroundColor: '#8B2FC9', margin: '0 auto 16px' }}/>
         <p style={{ fontSize: '14px', color: '#6a3a9a', maxWidth: '400px', lineHeight: '1.9', marginBottom: '36px' }}>
-          Be first to know when Honeydew ships, plus exclusive previews of what is coming next from Klarvoya.
+          Be first to know when Honeydew ships, plus exclusive previews of what is coming next from Klarvoya™.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', maxWidth: '480px', width: '100%' }}>
           <label htmlFor="email-input" style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>
@@ -406,7 +401,7 @@ export default function Home() {
                   headers: { 'content-type': 'application/json' },
                   body: JSON.stringify({ email: input.value }),
                 });
-                alert('Thank you for joining the Klarvoya inner circle!');
+                alert('Thank you for joining the Klarvoya™ inner circle!');
                 input.value = '';
               } catch {
                 alert('Something went wrong. Please try again.');
@@ -440,7 +435,7 @@ export default function Home() {
         <h2 style={{ fontSize: '36px', fontWeight: '300', color: '#fff', marginBottom: '8px', fontStyle: 'italic', position: 'relative', zIndex: 1 }}>follow our journey</h2>
         <div style={{ width: '32px', height: '1px', backgroundColor: '#e8d8ff', margin: '0 auto 20px', position: 'relative', zIndex: 1 }}/>
         <p style={{ fontSize: '15px', color: '#e8d8ff', maxWidth: '400px', lineHeight: '1.9', marginBottom: '40px', position: 'relative', zIndex: 1 }}>
-          Behind the scenes, updates on our launch, and the story behind each Klarvoya piece.
+          Behind the scenes, updates on our launch, and the story behind each Klarvoya™ piece.
         </p>
         <a href="https://instagram.com/klarvoya" target="_blank" rel="noopener noreferrer" style={{
           backgroundColor: '#fff', color: '#2d0060',
@@ -462,7 +457,9 @@ export default function Home() {
           maxWidth: '960px', margin: '0 auto 48px',
         }}>
           <div>
-            <p style={{ fontSize: '22px', fontWeight: '300', letterSpacing: '0.2em', color: '#fff', fontFamily: 'Georgia, serif', fontStyle: 'italic', marginBottom: '12px' }}>Klarvoya</p>
+            <p style={{ fontSize: '22px', fontWeight: '300', letterSpacing: '0.2em', color: '#fff', fontFamily: 'Georgia, serif', fontStyle: 'italic', marginBottom: '12px' }}>
+              Klarvoya<sup style={{ fontSize: '12px', letterSpacing: '0' }}>™</sup>
+            </p>
             <p style={{ fontSize: '12px', color: '#c9a8f0', lineHeight: '1.8', maxWidth: '200px' }}>
               Patent pending fine jewelry. Designed to transform.
             </p>
@@ -484,7 +481,7 @@ export default function Home() {
         </div>
         <div style={{ borderTop: '1px solid #3d1070', paddingTop: '24px', textAlign: 'center' }}>
           <p style={{ fontSize: '11px', color: '#7a5a9a', letterSpacing: '0.15em' }}>
-            2025 KLARVOYA TM · ALL RIGHTS RESERVED · FINE JEWELRY · PATENT PENDING
+            2025 KLARVOYA™ · ALL RIGHTS RESERVED · FINE JEWELRY · PATENT PENDING
           </p>
         </div>
       </footer>
