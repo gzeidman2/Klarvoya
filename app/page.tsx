@@ -121,7 +121,7 @@ export default function Home() {
         textAlign: 'center', fontFamily: 'sans-serif',
         fontSize: '12px', letterSpacing: '0.15em', color: '#e8d8ff',
       }}>
-        PRE-ORDER NOW — SHIPS FALL 2026 · PATENT PENDING FINE JEWELRY
+        PRE-ORDER NOW — SHIPS FALL 2026 · PATENT PENDING FINE JEWELRY · WEARABLE ART
       </div>
 
       {/* NAV */}
@@ -186,19 +186,21 @@ export default function Home() {
           <p style={{ fontSize: '11px', letterSpacing: '0.4em', color: '#8B2FC9', fontFamily: 'sans-serif', marginBottom: '16px' }}>
             KLARVOYA™ DEBUT COLLECTION
           </p>
-          <h1 style={{ fontSize: '56px', fontWeight: '300', color: '#2d0060', lineHeight: '1.15', marginBottom: '24px' }}>
+          <h1 style={{ fontSize: '56px', fontWeight: '300', color: '#2d0060', lineHeight: '1.15', marginBottom: '12px' }}>
             Honeydew<br/>
             <span style={{ fontStyle: 'italic' }}>Earrings</span>
           </h1>
+          <p style={{ fontSize: '13px', letterSpacing: '0.25em', color: '#8B2FC9', fontFamily: 'sans-serif', marginBottom: '24px' }}>
+            WEARABLE ART · FINE JEWELRY
+          </p>
           <div style={{ width: '40px', height: '1px', backgroundColor: '#8B2FC9', marginBottom: '24px' }}/>
           <p style={{ fontSize: '16px', color: '#5a3080', lineHeight: '1.9', marginBottom: '16px' }}>
-            A patent pending circular hoop earring crafted from brass. Lightweight yet substantial, designed to move with you and complement every look from morning to evening.
+            Where fine jewelry meets wearable sculpture — the Honeydew is a patent pending circular hoop designed as both an ornamental work of art and a piece to be worn every day.
           </p>
 
           <div style={{ backgroundColor: '#fff', border: '1px solid #e0d0f0', padding: '20px 24px', marginBottom: '24px', borderRadius: '2px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
               {[
-                { label: 'Material', value: 'Brass' },
                 { label: 'Style', value: 'Circular Hoop' },
                 { label: 'Price', value: '$80' },
                 { label: 'Ships', value: 'Fall 2026' },
@@ -259,7 +261,7 @@ export default function Home() {
         display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '32px',
         flexWrap: 'wrap',
       }}>
-        {['PATENT PENDING', 'BRASS', 'CIRCULAR HOOP', 'WOMAN OWNED', 'FREE SHIPPING'].map((val, i) => (
+        {['PATENT PENDING', 'FINE JEWELRY', 'WEARABLE ART', 'CIRCULAR HOOP', 'WOMAN OWNED', 'FREE SHIPPING'].map((val, i) => (
           <div key={val} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             {i > 0 && <span style={{ color: '#c9a8f0', fontSize: '10px' }}>◇</span>}
             <span style={{ fontSize: '10px', letterSpacing: '0.25em', color: '#6a3a9a', fontFamily: 'sans-serif' }}>{val}</span>
@@ -274,21 +276,24 @@ export default function Home() {
         display: 'flex', gap: '64px', flexWrap: 'wrap', justifyContent: 'center',
       }}>
         <p style={{ width: '100%', textAlign: 'center', fontSize: '11px', letterSpacing: '0.4em', color: '#8B2FC9', fontFamily: 'sans-serif', marginBottom: '8px' }}>THE DETAILS</p>
-        <h2 style={{ width: '100%', textAlign: 'center', fontSize: '32px', fontWeight: '300', color: '#2d0060', marginBottom: '48px', fontStyle: 'italic' }}>
+        <h2 style={{ width: '100%', textAlign: 'center', fontSize: '32px', fontWeight: '300', color: '#2d0060', marginBottom: '8px', fontStyle: 'italic' }}>
           crafted with intention
         </h2>
+        <p style={{ width: '100%', textAlign: 'center', fontSize: '13px', letterSpacing: '0.2em', color: '#8B2FC9', fontFamily: 'sans-serif', marginBottom: '48px' }}>
+          WEARABLE ART · FINE JEWELRY
+        </p>
         {[
           {
             title: 'The Design',
-            body: 'A patent pending circular hoop with a refined silhouette. Lightweight yet substantial, the Honeydew is designed to move with you through every moment of your day.',
+            body: 'A patent pending circular hoop with a refined silhouette. The Honeydew exists at the intersection of fine jewelry and decorative art — designed to be worn, displayed, and admired.',
           },
           {
             title: 'The Material',
-            body: 'Crafted from brass — a warm, rich metal with a beautiful tone that complements every skin tone. Durable and built to last for years to come.',
+            body: 'Crafted from fine metals, built to last for years to come. Material details coming soon.',
           },
           {
             title: 'The Promise',
-            body: 'Every Klarvoya™ piece features a patent pending design. Your pre-order helps bring this original design to life — be among the first to own it.',
+            body: 'Every Klarvoya™ piece is a wearable work of art with a patent pending design. Your pre-order helps bring this original creation to life — be among the first to own it.',
           },
         ].map((item) => (
           <div key={item.title} style={{ flex: '1', minWidth: '220px', maxWidth: '260px', textAlign: 'center' }}>
@@ -297,6 +302,35 @@ export default function Home() {
             <p style={{ fontSize: '14px', color: '#6a3a9a', lineHeight: '1.9' }}>{item.body}</p>
           </div>
         ))}
+      </section>
+
+      {/* WEARABLE ART SECTION */}
+      <section style={{
+        backgroundColor: '#2d0060',
+        padding: '80px 48px',
+        display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center',
+        position: 'relative', overflow: 'hidden',
+      }}>
+        <svg aria-hidden="true" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0.06 }} viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice">
+          <circle cx="400" cy="200" r="300" fill="none" stroke="#c9a8f0" strokeWidth="1"/>
+          <circle cx="400" cy="200" r="200" fill="none" stroke="#c9a8f0" strokeWidth="0.8"/>
+          <circle cx="400" cy="200" r="100" fill="none" stroke="#c9a8f0" strokeWidth="0.6"/>
+          <circle cx="100" cy="200" r="150" fill="none" stroke="#c9a8f0" strokeWidth="0.5"/>
+          <circle cx="700" cy="200" r="150" fill="none" stroke="#c9a8f0" strokeWidth="0.5"/>
+        </svg>
+        <p style={{ fontSize: '11px', letterSpacing: '0.4em', color: '#c9a8f0', fontFamily: 'sans-serif', marginBottom: '12px', position: 'relative', zIndex: 1 }}>
+          THE VISION
+        </p>
+        <h2 style={{ fontSize: '36px', fontWeight: '300', color: '#fff', marginBottom: '8px', fontStyle: 'italic', position: 'relative', zIndex: 1 }}>
+          jewelry as art
+        </h2>
+        <div style={{ width: '32px', height: '1px', backgroundColor: '#c9a8f0', margin: '0 auto 24px', position: 'relative', zIndex: 1 }}/>
+        <p style={{ fontSize: '16px', color: '#c9a8f0', maxWidth: '600px', lineHeight: '1.9', marginBottom: '16px', position: 'relative', zIndex: 1 }}>
+          Klarvoya™ exists at the intersection of fine jewelry and ornamental art. Each piece is designed not just to be worn — but to be a statement, a sculpture, a work of art that happens to live on your body.
+        </p>
+        <p style={{ fontSize: '16px', color: '#c9a8f0', maxWidth: '600px', lineHeight: '1.9', position: 'relative', zIndex: 1 }}>
+          The Honeydew circular hoop is our debut expression of this vision — a patent pending design that bridges the world of fine jewelry and decorative metalwork.
+        </p>
       </section>
 
       {/* OUR STORY */}
@@ -324,7 +358,7 @@ export default function Home() {
             Klarvoya™ was born from the belief that jewelry should do more than decorate. It should transform. It should see you.
           </p>
           <p style={{ fontSize: '16px', color: '#5a3080', lineHeight: '1.9', marginBottom: '32px' }}>
-            The Honeydew earring is our debut piece — a patent pending circular hoop designed to be worn, remembered, and passed down. Simple in form, intentional in every detail.
+            The Honeydew earring is our debut piece — a patent pending circular hoop that is both fine jewelry and a wearable work of art. Simple in form, intentional in every detail, designed to be worn, remembered, and passed down.
           </p>
           <a href="https://instagram.com/klarvoya" target="_blank" rel="noopener noreferrer" style={{
             display: 'inline-block',
@@ -457,11 +491,14 @@ export default function Home() {
           maxWidth: '960px', margin: '0 auto 48px',
         }}>
           <div>
-            <p style={{ fontSize: '22px', fontWeight: '300', letterSpacing: '0.2em', color: '#fff', fontFamily: 'Georgia, serif', fontStyle: 'italic', marginBottom: '12px' }}>
+            <p style={{ fontSize: '22px', fontWeight: '300', letterSpacing: '0.2em', color: '#fff', fontFamily: 'Georgia, serif', fontStyle: 'italic', marginBottom: '8px' }}>
               Klarvoya<sup style={{ fontSize: '12px', letterSpacing: '0' }}>™</sup>
             </p>
+            <p style={{ fontSize: '11px', letterSpacing: '0.15em', color: '#c9a8f0', fontFamily: 'sans-serif', marginBottom: '12px' }}>
+              WEARABLE ART · FINE JEWELRY
+            </p>
             <p style={{ fontSize: '12px', color: '#c9a8f0', lineHeight: '1.8', maxWidth: '200px' }}>
-              Patent pending fine jewelry. Designed to transform.
+              Patent pending fine jewelry and wearable art. Designed to transform.
             </p>
           </div>
           <div>
@@ -481,7 +518,7 @@ export default function Home() {
         </div>
         <div style={{ borderTop: '1px solid #3d1070', paddingTop: '24px', textAlign: 'center' }}>
           <p style={{ fontSize: '11px', color: '#7a5a9a', letterSpacing: '0.15em' }}>
-            2025 KLARVOYA™ · ALL RIGHTS RESERVED · FINE JEWELRY · PATENT PENDING
+            2025 KLARVOYA™ · ALL RIGHTS RESERVED · FINE JEWELRY · WEARABLE ART · PATENT PENDING
           </p>
         </div>
       </footer>
